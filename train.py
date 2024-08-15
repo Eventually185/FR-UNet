@@ -1,7 +1,7 @@
 import argparse
 from bunch import Bunch
 from loguru import logger
-from ruamel.yaml import safe_load
+from ruamel.yaml import YAML
 from torch.utils.data import DataLoader
 import models
 from dataset import vessel_dataset
@@ -40,7 +40,7 @@ def main(CFG, data_path, batch_size, with_val=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-dp', '--dataset_path', default="/home/lwt/data_pro/vessel/DRIVE", type=str,
+    parser.add_argument('-dp', '--dataset_path', default="/home/wenqi/RF-UNet/datasets/DRIVE", type=str,
                         help='the path of dataset')
     parser.add_argument('-bs', '--batch_size', default=512,
                         help='batch_size for trianing and validation')
@@ -49,5 +49,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     with open('config.yaml', encoding='utf-8') as file:
-        CFG = Bunch(safe_load(file))
+        yaml = YAML(typ='safe', pure=True)
+        yaml_data = yaml.load(file)
+        CFG = Bunch(yaml_data)
     main(CFG, args.dataset_path, args.batch_size, args.val)
