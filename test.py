@@ -1,13 +1,16 @@
 import argparse
 import torch
+import yaml
 from bunch import Bunch
-from ruamel.yaml import safe_load
+from ruamel.yaml import YAML
 from torch.utils.data import DataLoader
 import models
 from dataset import vessel_dataset
-from tester import Tester
+from tester import Tester  #!!
 from utils import losses
 from utils.helpers import get_instance
+
+
 
 
 def main(data_path, weight_path, CFG, show):
@@ -24,13 +27,15 @@ def main(data_path, weight_path, CFG, show):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-dp", "--dataset_path", default="/home/lwt/data_pro/vessel/DRIVE", type=str,
+    parser.add_argument("-dp", "--dataset_path", default="/home/wenqi/RF-UNet/datasets/DRIVE", type=str,
                         help="the path of dataset")
-    parser.add_argument("-wp", "--wetght_path", default="pretrained_weights/DRIVE/checkpoint-epoch40.pth", type=str,
-                        help='the path of wetght.pt')
+    parser.add_argument("-wp", "--weight_path", default="/home/wenqi/RF-UNet/saved/FR_UNet/240724112434/checkpoint-epoch40.pth", type=str,
+                        help='the path of weight.pt')
     parser.add_argument("--show", help="save predict image",
                         required=False, default=False, action="store_true")
     args = parser.parse_args()
-    with open("config.yaml", encoding="utf-8") as file:
-        CFG = Bunch(safe_load(file))
-    main(args.dataset_path, args.wetght_path, CFG, args.show)
+    with open("/home/wenqi/RF-UNet/config.yaml", encoding="utf-8") as file:
+        yaml = YAML(typ='safe', pure=True)
+        yaml_data = yaml.load(file)
+        CFG = Bunch(yaml_data)
+    main(args.dataset_path, args.weight_path, CFG, args.show)
