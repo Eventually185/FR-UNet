@@ -1,13 +1,13 @@
 import os
 import argparse
 import pickle
-import cv2
+import cv2                    
 import numpy as np
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
 from PIL import Image
-from ruamel.yaml import safe_load
+from ruamel.yaml import YAML    #safe_load改为yaml
 from torchvision.transforms import Grayscale, Normalize, ToTensor
 from utils.helpers import dir_exists, remove_files
 
@@ -186,7 +186,7 @@ def normalization(imgs_list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-dp', '--dataset_path', default="datasets/DRIVE", type=str,
+    parser.add_argument('-dp', '--dataset_path', default="/home/wenqi/RF-UNet/datasets/DRIVE", type=str,
                         help='the path of dataset',required=True)
     parser.add_argument('-dn', '--dataset_name', default="DRIVE", type=str,
                         help='the name of dataset',choices=['DRIVE','CHASEDB1','STARE','CHUAC','DCA1'],required=True)
@@ -196,7 +196,8 @@ if __name__ == '__main__':
                         help='the stride of image partition')
     args = parser.parse_args()
     with open('config.yaml', encoding='utf-8') as file:
-        CFG = safe_load(file)  # 为列表类型
+        yaml = YAML(typ='safe', pure=True)
+        CFG = yaml.load(file)  
 
     data_process(args.dataset_path, args.dataset_name,
                  args.patch_size, args.stride, "training")
