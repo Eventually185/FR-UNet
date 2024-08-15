@@ -1,4 +1,5 @@
 import time
+import os
 import cv2
 import torch
 import numpy as np
@@ -8,14 +9,15 @@ import torchvision.transforms.functional as TF
 from loguru import logger
 from tqdm import tqdm
 from trainer import Trainer
-from utils.helpers import dir_exists, remove_files, double_threshold_iteration
+#from utils.helpers import dir_exists, remove_files, double_threshold_iteration
+from utils.helpers import dir_exists, double_threshold_iteration
 from utils.metrics import AverageMeter, get_metrics, get_metrics, count_connect_component
 import ttach as tta
 
 
 class Tester(Trainer):
     def __init__(self, model, loss, CFG, checkpoint, test_loader, dataset_path, show=False):
-        # super(Trainer, self).__init__()
+        #super(Trainer, self).__init__()
         self.loss = loss
         self.CFG = CFG
         self.test_loader = test_loader
@@ -25,7 +27,8 @@ class Tester(Trainer):
         self.model.load_state_dict(checkpoint['state_dict'])
         if self.show:
             dir_exists("save_picture")
-            remove_files("save_picture")
+            if not os.path.exists(dir_exists):
+                os.makedirs(dir_exists)  # 创建目录
         cudnn.benchmark = True
 
     def test(self):
