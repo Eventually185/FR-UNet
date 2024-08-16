@@ -16,7 +16,7 @@ import ttach as tta
 
 
 class Tester(Trainer):
-    def __init__(self, model, loss, CFG, checkpoint, test_loader, dataset_path, show=False):
+    def __init__(self, model, loss, CFG, checkpoint, test_loader, dataset_path, show=True):
         #super(Trainer, self).__init__()
         self.loss = loss
         self.CFG = CFG
@@ -26,9 +26,7 @@ class Tester(Trainer):
         self.show = show
         self.model.load_state_dict(checkpoint['state_dict'])
         if self.show:
-            dir_exists("save_picture")
-            if not os.path.exists(dir_exists):
-                os.makedirs(dir_exists)  # 创建目录
+            dir_exists('/home/wenqi/RF-UNet/save_picture')
         cudnn.benchmark = True
 
     def test(self):
@@ -67,13 +65,13 @@ class Tester(Trainer):
                     predict = torch.sigmoid(pre).cpu().detach().numpy()
                     predict_b = np.where(predict >= self.CFG.threshold, 1, 0)
                     cv2.imwrite(
-                        f"save_picture/img{i}.png", np.uint8(img.cpu().numpy()*255))
+                        f"/home/wenqi/RF-UNet/save_picture/img{i}.png", np.uint8(img.cpu().numpy()*255))
                     cv2.imwrite(
-                        f"save_picture/gt{i}.png", np.uint8(gt.cpu().numpy()*255))
+                        f"/home/wenqi/RF-UNet/save_picture/gt{i}.png", np.uint8(gt.cpu().numpy()*255))
                     cv2.imwrite(
-                        f"save_picture/pre{i}.png", np.uint8(predict*255))
+                        f"/home/wenqi/RF-UNet/save_picture/pre{i}.png", np.uint8(predict*255))
                     cv2.imwrite(
-                        f"save_picture/pre_b{i}.png", np.uint8(predict_b*255))
+                        f"/home/wenqi/RF-UNet/save_picture/pre_b{i}.png", np.uint8(predict_b*255))
 
                 if self.CFG.DTI:
                     pre_DTI = double_threshold_iteration(
