@@ -81,6 +81,32 @@ def save_pickle(path, type, img_list):
         pickle.dump(img_list, file)
 
 
+    def region_growing(seed, img, gbin):
+        
+        if 0 <= seed[1] < h and 0 <= seed[0] < w:  
+            if gbin[seed[1], seed[0]] == 0 and img[seed[1], seed[0]] < h_thresh:
+                gbin[seed[1], seed[0]] = 255  
+                # 8 direction
+                #img[seed[1], seed[0]] >= l_thresh and 
+    for sd in seeds:
+        region_growing((sd[0], sd[1]), img, gbin)
+        region_growing((sd[0] - 1, sd[1] - 1), img, gbin)
+        region_growing((sd[0] - 1, sd[1]), img, gbin)
+        region_growing((sd[0] - 1, sd[1] + 1), img, gbin,)
+        region_growing((sd[0], sd[1] - 1), img, gbin)
+        region_growing((sd[0], sd[1] + 1), img, gbin)
+        region_growing((sd[0] + 1, sd[1] - 1), img, gbin)
+        region_growing((sd[0] + 1, sd[1]), img, gbin)
+        region_growing((sd[0] + 1, sd[1] + 1), img, gbin)
+    
+   
+    if save:
+        cv2.imwrite(f"/home/wenqi/RF-UNet/datasets/breast/image_pro/gbin{index}.png", gbin)  # save
+
+    return gbin  
+
+
+'''
 def double_threshold_iteration(index,img, h_thresh, l_thresh, save=True):
     h, w = img.shape
     img = np.array(torch.sigmoid(img).cpu().detach()*255, dtype=np.uint8)
@@ -99,6 +125,9 @@ def double_threshold_iteration(index,img, h_thresh, l_thresh, save=True):
         cv2.imwrite(f"save_picture/bin{index}.png", bin)
         cv2.imwrite(f"save_picture/gbin{index}.png", gbin)
     return gbin/255
+'''
+
+
 
 
 def recompone_overlap(preds, img_h, img_w, stride_h, stride_w):
