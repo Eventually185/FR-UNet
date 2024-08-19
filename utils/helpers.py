@@ -80,7 +80,19 @@ def save_pickle(path, type, img_list):
     with open(file=path + f"/{type}.pkl", mode='wb') as file:
         pickle.dump(img_list, file)
 
+def double_threshold_iteration(index, img, h_thresh, l_thresh, save=True):
+    h, w = 512, 512
+    #print(h_thresh)
+    #print( l_thresh)
+    gbin = np.zeros((h, w), dtype=np.uint8)  # all black
 
+    # find seed
+    seeds = []
+    for i in range(h):
+        for j in range(w):
+            if l_thresh <= img[i, j] < h_thresh:
+                seeds.append((j, i))  
+    #print(seeds)
     def region_growing(seed, img, gbin):
         
         if 0 <= seed[1] < h and 0 <= seed[0] < w:  
