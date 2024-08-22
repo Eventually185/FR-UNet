@@ -27,9 +27,9 @@ def main(data_path, weight_path, CFG, show):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-dp", "--dataset_path", default="/home/wenqi/RF-UNet/datasets/DRIVE", type=str,
+    parser.add_argument("-dp", "--dataset_path", default="/home/xxx/RF-UNet/datasets/DRIVE", type=str,
                         help="the path of dataset")
-    parser.add_argument("-wp", "--weight_path", default="/home/wenqi/RF-UNet/saved/FR_UNet/240724112434/checkpoint-epoch40.pth", type=str,
+    parser.add_argument("-wp", "--weight_path", default="/home/xxx/RF-UNet/saved/FR_UNet/240724112434/checkpoint-epoch40.pth", type=str,
                         help='the path of weight.pt')
     parser.add_argument("--show", help="save predict image",
                         required=False, default=False, action="store_true")
