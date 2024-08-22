@@ -5,7 +5,7 @@ import os
 import fnmatch
 from pathlib import Path
 
-root_dir = '/home/wenqi/RF-UNet/datasets/json_pro'
+root_dir = '/home/xxx/RF-UNet/datasets/json_pro'
 
 
 def gen_mask_img(json_filename):
