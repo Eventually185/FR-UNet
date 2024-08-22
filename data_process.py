@@ -186,7 +186,7 @@ def normalization(imgs_list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-dp', '--dataset_path', default="/home/wenqi/RF-UNet/datasets/DRIVE", type=str,
+    parser.add_argument('-dp', '--dataset_path', default="/home/xxx/RF-UNet/datasets/DRIVE", type=str,
                         help='the path of dataset',required=True)
     parser.add_argument('-dn', '--dataset_name', default="DRIVE", type=str,
                         help='the name of dataset',choices=['DRIVE','CHASEDB1','STARE','CHUAC','DCA1'],required=True)
