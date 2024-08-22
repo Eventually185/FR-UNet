@@ -115,13 +115,13 @@ def test_ve( weight_path, save_path, CFG):
              predict_b = np.where(predict >= threshold, 1, 0)
              #print(predict_b.shape)
              cv2.imwrite(
-                 f"/home/wenqi/RF-UNet/datasets/breast/image_pro/img{i}.png", np.uint8(sub*255))
+                 f"/home/xxx/RF-UNet/datasets/breast/image_pro/img{i}.png", np.uint8(sub*255))
              cv2.imwrite( 
-                  f"/home/wenqi/RF-UNet/datasets/breast/image_pro/pre{i}.png", np.uint8(predict*255))
+                  f"/home/xxx/RF-UNet/datasets/breast/image_pro/pre{i}.png", np.uint8(predict*255))
              if np.any(predict_b == 1):
                  
                  cv2.imwrite(
-                       f"/home/wenqi/RF-UNet/datasets/breast/image_pro/pre_b{i}.png", np.uint8(predict_b*255))
+                       f"/home/xxx/RF-UNet/datasets/breast/image_pro/pre_b{i}.png", np.uint8(predict_b*255))
              
                
 
